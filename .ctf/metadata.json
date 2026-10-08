@@ -1,0 +1,14 @@
+{
+  "title": "PHP Local File Inclusion RCE through phpinfo()",
+  "description": "A PHP 7.1 site with lfi.php (a local file inclusion) and phpinfo.php: phpinfo() prints the temporary name of a file uploaded with the request, so a race includes that file before PHP deletes it and runs its code.",
+  "question": "Turn the LFI into code execution through phpinfo() and get a shell.",
+  "category": "WEB",
+  "difficulty": 3,
+  "evidence_kind": "SECRET",
+  "capabilities": [
+    "local-file-inclusion",
+    "race-condition",
+    "remote-code-execution",
+    "php"
+  ]
+}
