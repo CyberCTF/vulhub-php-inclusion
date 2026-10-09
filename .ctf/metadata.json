@@ -4,11 +4,5 @@
   "question": "Turn the LFI into code execution through phpinfo() and get a shell.",
   "category": "WEB",
   "difficulty": 3,
-  "evidence_kind": "SECRET",
-  "capabilities": [
-    "local-file-inclusion",
-    "race-condition",
-    "remote-code-execution",
-    "php"
-  ]
+  "evidence_kind": "SECRET"
 }
