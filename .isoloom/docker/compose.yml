@@ -9,6 +9,9 @@ services:
   php:
     build:
       context: ../../build/php
+      labels:
+        isoloom.managed: 'true'
+        isoloom.environment: vulhub-php-inclusion
     image: isoloom/vulhub-php-inclusion-php
     platform: linux/amd64
     hostname: php
@@ -40,6 +43,8 @@ services:
           memory: 256M
     labels:
       isoloom.service.web: http:80
+      isoloom.managed: 'true'
+      isoloom.environment: vulhub-php-inclusion
     restart: unless-stopped
   php-routes:
     image: alpine:3.20
@@ -61,6 +66,9 @@ services:
       php:
         condition: service_started
     restart: unless-stopped
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: vulhub-php-inclusion
   isoloom-check:
     image: curlimages/curl:8.11.1
     profiles:
@@ -82,6 +90,9 @@ services:
         condition: service_healthy
       php-routes:
         condition: service_healthy
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: vulhub-php-inclusion
   isoloom-check-php:
     image: curlimages/curl:8.11.1
     profiles:
@@ -97,6 +108,9 @@ services:
         condition: service_healthy
       php-routes:
         condition: service_healthy
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: vulhub-php-inclusion
   isoloom-probe-amd64:
     image: busybox:1.37.0-musl
     platform: linux/amd64
@@ -108,11 +122,20 @@ services:
     - isoloom-probe-amd64:/probe
     network_mode: none
     restart: no
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: vulhub-php-inclusion
 networks:
   lab:
     ipam:
       config:
       - subnet: 10.60.239.0/24
         gateway: 10.60.239.1
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: vulhub-php-inclusion
 volumes:
-  isoloom-probe-amd64: {}
+  isoloom-probe-amd64:
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: vulhub-php-inclusion

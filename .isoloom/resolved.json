@@ -94,7 +94,8 @@
       "vagrant": "needs `vm:` on php",
       "proxmox": "needs `vm:` on php",
       "cloud-vm": "needs `vm:` on php",
-      "external": "needs `external:` on php"
+      "external": "needs `external:` on php",
+      "cloud-services": "left out by `targets:`"
     }
   },
   "checks": {
