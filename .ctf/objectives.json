@@ -1,0 +1,65 @@
+{
+  "objectives": [
+    {
+      "key": "main",
+      "title": "Read the flag",
+      "prompt": "Turn the local file inclusion into code execution through phpinfo() and read /ctf/flag.",
+      "check": {
+        "evidence": "SECRET",
+        "format": "FLAG{%s}"
+      },
+      "dev": "FLAG{dev-vulhub-php-inclusion}",
+      "hints": [
+        "lfi.php includes whatever file you name. phpinfo.php shows the request's data, including the temporary name of an uploaded file.",
+        "PHP deletes the uploaded file when the request ends: the inclusion must win a race. The flag is at /ctf/flag."
+      ],
+      "steps": [
+        {
+          "key": "class",
+          "title": "Name the weakness",
+          "prompt": "Which vulnerability class does lfi.php have? (full name or acronym)",
+          "check": {
+            "answer": [
+              "lfi",
+              "local file inclusion",
+              "file inclusion",
+              "local file include"
+            ]
+          }
+        },
+        {
+          "key": "parameter",
+          "title": "Find the parameter",
+          "prompt": "Which query parameter of lfi.php names the included file? (parameter name)",
+          "check": {
+            "answer": [
+              "file"
+            ]
+          }
+        },
+        {
+          "key": "leak",
+          "title": "Find the leak",
+          "prompt": "Which page reveals the temporary path of a file uploaded with the request? (file name)",
+          "check": {
+            "answer": [
+              "phpinfo.php",
+              "phpinfo"
+            ]
+          }
+        },
+        {
+          "key": "technique",
+          "title": "Name the technique",
+          "prompt": "What kind of bug must you win to include the temporary file before PHP removes it? (two words)",
+          "check": {
+            "answer": [
+              "race condition",
+              "race"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
