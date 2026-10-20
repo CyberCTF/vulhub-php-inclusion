@@ -7,21 +7,29 @@ version: 1
 name: vulhub-php-inclusion
 
 # Given by the CyberCTF launcher: this player's flag. Without it the development flag.
-inputs: [CTF_FLAG_MAIN]
+inputs:
+  CTF_FLAG_MAIN: {}
 
 networks:
-  lab: { cidr: 10.60.239.0/24, internet: false }
+  lab: {cidr: 10.60.239.0/24, internet: false}
 
 machines:
   php:
-    networks: { lab: 10 }
-    services: [{ port: 80, name: web, http: true, publish: 8080 }]
-    resources: { cpus: 1, memory_mb: 256 }
-    inputs: [CTF_FLAG_MAIN]
-    volumes: { ctf: /ctf }   # the flag, written by ctf/flag.sh at every start
-    docker:
+    networks: {lab: 10}
+    resources: {cpus: 1, memory_mb: 256}
+    volumes: {ctf: /ctf}     # the flag, written by ctf/flag.sh at every start
+    ports:
+      web:
+        port: 80
+        protocol: http
+        publish: true
+    files:
+      - path: /run/lab/ctf_flag_main
+        input: CTF_FLAG_MAIN
+    setup:
+      - ctf/flag.sh
+    app:
       build: build/php
-      init: [ctf/flag.sh]
 
 checks:
   - name: the web server answers
@@ -32,5 +40,5 @@ checks:
     wait: 60
 
 message: |
-  A PHP site answers at http://localhost:{{ machines.php.services.0.publish }}/lfi.php?file=/etc/passwd; there is also a phpinfo.php.
+  A PHP site answers at {{ machines.php.ports.web.url }}lfi.php?file=/etc/passwd; there is also a phpinfo.php.
   Where do uploaded files go before a script runs, and for how long?

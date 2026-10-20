@@ -1,8 +1,11 @@
 {
+  "project_name": "cyberlabs-vulhub-php-inclusion",
+  "slug": "vulhub-php-inclusion",
   "title": "PHP Local File Inclusion RCE through phpinfo()",
   "description": "A PHP 7.1 site with lfi.php (a local file inclusion) and phpinfo.php: phpinfo() prints the temporary name of a file uploaded with the request, so a race includes that file before PHP deletes it and runs its code.",
-  "question": "Turn the LFI into code execution through phpinfo() and read /ctf/flag.",
-  "category": "WEB",
+  "category": "web",
   "difficulty": 3,
-  "evidence_kind": "SECRET"
+  "evidence_kind": "SECRET",
+  "capabilities": [],
+  "question": "Turn the LFI into code execution through phpinfo() and read /ctf/flag."
 }
